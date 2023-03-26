@@ -3,6 +3,7 @@ package com.example.instagramclone;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +24,7 @@ import java.util.List;
 
 public class SignUp extends AppCompatActivity implements View.OnClickListener{
 
-    private Button btnSave, btnGetAllData;
+    private Button btnSave, btnGetAllData, btnNextActivity;
     private EditText edtName, edtPunchSpeed, edtPunchPower, edtKickSpeed, edtKickPower;
     private TextView txtGetData;
     private String allKickBoxers;
@@ -43,6 +44,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
         btnSave = findViewById(R.id.btnSave);
         txtGetData = findViewById(R.id.txtGetData);
         btnGetAllData = findViewById(R.id.btnGetAllData);
+        btnNextActivity = findViewById(R.id.btnNextActivity);
 
         btnSave.setOnClickListener(SignUp.this);
         txtGetData.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +72,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
 
                 allKickBoxers = "";
                 ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("KickBoxer");
+
+//                queryAll.whereGreaterThan("punch_power", 7000);
                 queryAll.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> objects, ParseException e) {
@@ -95,6 +99,13 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
             }
         });
 
+        btnNextActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignUp.this, SignUpLoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
